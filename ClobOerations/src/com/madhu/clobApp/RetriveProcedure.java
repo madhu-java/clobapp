@@ -13,13 +13,14 @@ import java.sql.Types;
 import java.util.Scanner;
 
 import org.apache.commons.io.IOUtils;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.madhu.JavaUtil.JavaUtil;
 public class RetriveProcedure
 {
 
 
-
+private static final String sqlProcedurecall= "{call GET_PRODUCT_ByID(?,?,?,?)}";	
 
 	public static void main(String[] args) {
 
@@ -27,7 +28,7 @@ Connection connection= null;
 CallableStatement callableStatement=null;
 int id =0;
 ResultSet resultSet= null;
-String sqlProcedurecall= "{call GET_PRODUCT_ByID(?,?,?,?)}";	
+
 
 try {
 	connection= JavaUtil.getJdbcConnection();
