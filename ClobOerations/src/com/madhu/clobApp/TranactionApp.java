@@ -11,12 +11,13 @@ import com.madhu.JavaUtil.JavaUtil;
 
 public class TranactionApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 Connection connection= null;
 ResultSet resultSet= null;
 Statement statement= null;
 Scanner scanner= null;
+ResultSet rSet=null;
  try {
 	connection= JavaUtil.getJdbcConnection();
 	if(connection!=null)
@@ -42,7 +43,7 @@ Scanner scanner= null;
 		connection.rollback();
 	}
 	System.out.println("data after transaction...");
-	ResultSet rSet = statement.executeQuery("Select name, balance from accounts");
+ rSet = statement.executeQuery("Select name, balance from accounts");
 	System.out.println("name\tbalance");
 	while(rSet.next()) {
 		System.out.println(rSet.getString(1)+"\t"+rSet.getInt(2));
@@ -54,6 +55,9 @@ Scanner scanner= null;
 } catch (SQLException | IOException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
+}finally {
+	JavaUtil.closeResources(connection, statement, resultSet);
+	JavaUtil.closeResources(null,null,rSet);
 }
 	}
 
