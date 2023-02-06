@@ -23,7 +23,7 @@ public class JavaUtil {
 	}
 	
 	//2.establish the connection
-	public static Connection getJdbcConnection() throws SQLException, IOException {
+	public static Connection getJdbcConnection(int typeScrollInsensitive, int concurUpdatable) throws SQLException, IOException {
 		FileInputStream fis = new FileInputStream("C:\\Users\\madha\\git\\DateApp\\Date\\src\\com\\madhu\\properties\\application.properties");
 		Properties properties = new Properties();
 		properties.load(fis);
