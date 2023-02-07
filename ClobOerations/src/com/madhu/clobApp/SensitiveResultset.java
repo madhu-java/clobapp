@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import com.madhu.JavaUtil.JavaUtil;
 
-public class ScrollableApp {
+public class SensitiveResultset {
 
 	public static void main(String[] args) throws SQLException {
 
@@ -21,7 +21,7 @@ ResultSet rSet=null;
  try {
 	connection= JavaUtil.getJdbcConnection();
 	if(connection!=null)
-		statement= connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+		statement= connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE   ,ResultSet.CONCUR_UPDATABLE);
 	
 	System.out.println("printing in forward direction....");
 	resultSet=statement.executeQuery("Select id,name,age,address from student");
@@ -31,6 +31,21 @@ ResultSet rSet=null;
 		
 	}
 	
+	resultSet.moveToInsertRow();
+	resultSet.updateInt(1, 101);
+	resultSet.updateString(2, "hope");
+	resultSet.updateInt(3, 12);
+	resultSet.updateString(4, "Dl");
+	//resultSet.insertRow();
+	resultSet.last();
+	resultSet.deleteRow();
+	System.out.println("after inserting first row....");
+	resultSet.beforeFirst();
+	System.out.println("id\tname\tage\taddress");
+	while(resultSet.next()) {
+		System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
+		
+	}
 	
 //	System.out.println("printing in backward direction....");
 //	while(resultSet.previous()) {
@@ -38,25 +53,6 @@ ResultSet rSet=null;
 //		
 //	}
 	
-	System.out.println("printing fist record...");
-	resultSet.first();
-	System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
-	
-
-	System.out.println("printing last record...");
-	resultSet.last();
-	System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
-	
-	
-
-	System.out.println("printing third record...");
-	resultSet.absolute(3);
-	System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
-	
-
-	System.out.println("printing seconf  record current podition...");
-	resultSet.relative(2);
-	System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
 	
 	
 } catch (SQLException | IOException e) {
@@ -69,3 +65,4 @@ ResultSet rSet=null;
 	}
 
 }
+

@@ -32,6 +32,15 @@ public class JavaUtil {
 		System.out.println("connection established");
 		return connection;
 	}
+	public static Connection getJdbcConnection() throws SQLException, IOException {
+		FileInputStream fis = new FileInputStream("C:\\Users\\madha\\git\\DateApp\\Date\\src\\com\\madhu\\properties\\application.properties");
+		Properties properties = new Properties();
+		properties.load(fis);
+		
+		Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+		System.out.println("connection established");
+		return connection;
+	}
 	
 	public static void closeResources(Connection connection, Statement statement,ResultSet resultset) throws SQLException {
 		if(connection!=null) {
