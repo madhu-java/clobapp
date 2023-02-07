@@ -38,9 +38,20 @@ ResultSet rSet=null;
 	resultSet.updateString(4, "Dl");
 	//resultSet.insertRow();
 	resultSet.last();
-	resultSet.deleteRow();
+	//resultSet.deleteRow();
 	System.out.println("after inserting first row....");
 	resultSet.beforeFirst();
+	//update address to "MI" whose age is >40"
+	
+	while(resultSet.next()) {
+		
+		int age = resultSet.getInt(3);
+		if(age>40) {
+			resultSet.updateString(4, "MI");
+			resultSet.updateRow();
+		}
+	}
+	System.out.println("updated....");
 	System.out.println("id\tname\tage\taddress");
 	while(resultSet.next()) {
 		System.out.println(resultSet.getInt(1)+"\t"+resultSet.getString(2)+"\t"+resultSet.getInt(3)+"\t"+resultSet.getString(4));
